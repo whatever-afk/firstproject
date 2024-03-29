@@ -1,0 +1,34 @@
+import traceback
+import logging
+
+def error_message_detail(error):
+    """
+    Extracts detailed error message information, including the file name, line number, and error message.
+    """
+    exc_type, exc_value, exc_tb = traceback.exc_info()
+    file_name = exc_tb.tb_frame.f_code.co_filename
+    line_number = exc_tb.tb_lineno
+    error_message = f"Error occurred in python script name [{file_name}] line [{line_number}] error message [{error}]"
+    return error_message
+
+class CustomException(Exception):
+    """
+    A custom exception class that enriches exceptions with detailed error information.
+    """
+    def __init__(self, error):
+        super().__init__(error)
+        self.error_message = error_message_detail(error)
+
+    def __str__(self):
+        return self.error_message
+    
+if __name__ == "__main__":
+    # Configure logging at the start
+    logging.basicConfig(level=logging.INFO)
+    
+    try:
+        a = 1/0
+    except Exception as e:
+        detailed_error_message = error_message_detail(e)
+        logging.info(detailed_error_message)
+        raise CustomException(e) from None

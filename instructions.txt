@@ -1,0 +1,13 @@
+python -m venv VIRTUAL_ENVIROMNET # this will create a virtual enviromment
+venv\Scripts\activate will activate
+
+got to github and create the new repository
+
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/whatever-afk/firstproject.git
+git push -u origin main
+
+git pull # to retrieve from github
